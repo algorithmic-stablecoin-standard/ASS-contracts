@@ -24,7 +24,6 @@ import "../external/UniswapV2Library.sol";
 import "../external/Require.sol";
 import "../external/Decimal.sol";
 import "./IOracle.sol";
-import "./IUSDC.sol";
 import "../Constants.sol";
 
 contract Oracle is IOracle {
@@ -89,16 +88,12 @@ contract Oracle is IOracle {
     function updateOracle() private returns (Decimal.D256 memory, bool) {
         Decimal.D256 memory price = updatePrice();
         uint256 lastReserve = updateReserve();
-        bool isBlacklisted = IUSDC(usdc()).isBlacklisted(address(_pair));
 
         bool valid = true;
         if (lastReserve < Constants.getOracleReserveMinimum()) {
             valid = false;
         }
         if (_reserve < Constants.getOracleReserveMinimum()) {
-            valid = false;
-        }
-        if (isBlacklisted) {
             valid = false;
         }
 
@@ -115,7 +110,7 @@ contract Oracle is IOracle {
         _timestamp = blockTimestamp;
         _cumulative = priceCumulative;
 
-        return price.mul(1e12);
+        return price;
     }
 
     function getCurrentTwapPrice() public view returns (uint256 value) {
@@ -127,7 +122,7 @@ contract Oracle is IOracle {
 
         Decimal.D256 memory price = Decimal.ratio((priceCumulative - _cumulative) / timeElapsed, 2**112);
 
-        return price.mul(1e12).value;
+        return price.value;
     }
 
     function setDao(address newDao) external onlyDao {

@@ -21,14 +21,15 @@ import "./external/Decimal.sol";
 
 library Constants {
     /* Chain */
-    uint256 private constant CHAIN_ID = 1; // Mainnet
+    uint256 private constant CHAIN_ID = 56; // BSC Mainnet
 
     /* Bootstrapping */
-    uint256 private constant BOOTSTRAPPING_PERIOD = 1;
+    uint256 private constant BOOTSTRAPPING_PERIOD = 0;
     uint256 private constant BOOTSTRAPPING_PRICE = 11e17; // 1.10 USDC
 
     /* Oracle */
-    address private constant USDC = address(0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d); // Binance-Peg USD Coin
+    address private constant USDC =
+        address(0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d); // Binance-Peg USD Coin
     uint256 private constant ORACLE_RESERVE_MINIMUM = 1e10; // 10,000 USDC
 
     /* Bonding */
@@ -40,7 +41,7 @@ library Constants {
         uint256 period;
     }
 
-    uint256 private constant EPOCH_START = 1617876000; // Thu Apr 08 2021 10:00:00 GMT+0000
+    uint256 private constant EPOCH_START = 0; // add some date in the future
     uint256 private constant EPOCH_PERIOD = 28800; // 8 hours
 
     /* Governance */
@@ -52,7 +53,7 @@ library Constants {
     uint256 private constant GOVERNANCE_EMERGENCY_DELAY = 6; // 6 epochs
 
     /* DAO */
-    uint256 private constant ADVANCE_INCENTIVE = 1e20; // 100 ASS
+    uint256 private constant ADVANCE_INCENTIVE = 1e19; // 10 ASS
     uint256 private constant DAO_EXIT_LOCKUP_EPOCHS = 1; // 1 epochs fluid
 
     /* Pool */
@@ -70,11 +71,9 @@ library Constants {
     uint256 private constant STABILIZER_BOT_RATIO = 5; // 5%
 
     /* Deployed */
-    // address private constant DAO_ADDRESS = address(); // !TODO!
-    // address private constant DOLLAR_ADDRESS = address(); // !TODO!
-    // address private constant PAIR_ADDRESS = address(); // !TODO!
-    address private constant TREASURY_ADDRESS = address(0x2a78B494852fc74c25B70eC69a78D7332c7Dc87d); // !TODO!
-    address private constant STABILIZER_BOT_ADDRESS = address(0xC3902c4e6cbD0AaB4E88bdDBAD75Ac13c9287ABf); // !TODO!
+    address private constant TREASURY_ADDRESS = address(0); // !TODO: Needs to add this
+    address private constant STABILIZER_BOT_ADDRESS =
+        address(0x52eeDb3B83F4EEe12f5f991d3ae328b1E31a556c);
 
     /**
      * Getters
@@ -89,7 +88,7 @@ library Constants {
     }
 
     function getEpochStrategy() internal pure returns (EpochStrategy memory) {
-        return EpochStrategy({ start: EPOCH_START, period: EPOCH_PERIOD });
+        return EpochStrategy({start: EPOCH_START, period: EPOCH_PERIOD});
     }
 
     function getInitialStakeMultiple() internal pure returns (uint256) {
@@ -100,8 +99,12 @@ library Constants {
         return BOOTSTRAPPING_PERIOD;
     }
 
-    function getBootstrappingPrice() internal pure returns (Decimal.D256 memory) {
-        return Decimal.D256({ value: BOOTSTRAPPING_PRICE });
+    function getBootstrappingPrice()
+        internal
+        pure
+        returns (Decimal.D256 memory)
+    {
+        return Decimal.D256({value: BOOTSTRAPPING_PRICE});
     }
 
     function getGovernancePeriod() internal pure returns (uint256) {
@@ -113,15 +116,23 @@ library Constants {
     }
 
     function getGovernanceQuorum() internal pure returns (Decimal.D256 memory) {
-        return Decimal.D256({ value: GOVERNANCE_QUORUM });
+        return Decimal.D256({value: GOVERNANCE_QUORUM});
     }
 
-    function getGovernanceProposalThreshold() internal pure returns (Decimal.D256 memory) {
-        return Decimal.D256({ value: GOVERNANCE_PROPOSAL_THRESHOLD });
+    function getGovernanceProposalThreshold()
+        internal
+        pure
+        returns (Decimal.D256 memory)
+    {
+        return Decimal.D256({value: GOVERNANCE_PROPOSAL_THRESHOLD});
     }
 
-    function getGovernanceSuperMajority() internal pure returns (Decimal.D256 memory) {
-        return Decimal.D256({ value: GOVERNANCE_SUPER_MAJORITY });
+    function getGovernanceSuperMajority()
+        internal
+        pure
+        returns (Decimal.D256 memory)
+    {
+        return Decimal.D256({value: GOVERNANCE_SUPER_MAJORITY});
     }
 
     function getGovernanceEmergencyDelay() internal pure returns (uint256) {
@@ -145,15 +156,23 @@ library Constants {
     }
 
     function getDebtRatioCap() internal pure returns (Decimal.D256 memory) {
-        return Decimal.D256({ value: DEBT_RATIO_CAP });
+        return Decimal.D256({value: DEBT_RATIO_CAP});
     }
 
-    function getSupplyChangeLimit() internal pure returns (Decimal.D256 memory) {
-        return Decimal.D256({ value: SUPPLY_CHANGE_LIMIT });
+    function getSupplyChangeLimit()
+        internal
+        pure
+        returns (Decimal.D256 memory)
+    {
+        return Decimal.D256({value: SUPPLY_CHANGE_LIMIT});
     }
 
-    function getCouponSupplyChangeLimit() internal pure returns (Decimal.D256 memory) {
-        return Decimal.D256({ value: COUPON_SUPPLY_CHANGE_LIMIT });
+    function getCouponSupplyChangeLimit()
+        internal
+        pure
+        returns (Decimal.D256 memory)
+    {
+        return Decimal.D256({value: COUPON_SUPPLY_CHANGE_LIMIT});
     }
 
     function getOraclePoolRatio() internal pure returns (uint256) {
@@ -171,18 +190,6 @@ library Constants {
     function getChainId() internal pure returns (uint256) {
         return CHAIN_ID;
     }
-
-    // function getDaoAddress() internal pure returns (address) {
-    //     return DAO_ADDRESS;
-    // }
-
-    // function getDollarAddress() internal pure returns (address) {
-    //     return DOLLAR_ADDRESS;
-    // }
-
-    // function getPairAddress() internal pure returns (address) {
-    //     return PAIR_ADDRESS;
-    // }
 
     function getTreasuryAddress() internal pure returns (address) {
         return TREASURY_ADDRESS;

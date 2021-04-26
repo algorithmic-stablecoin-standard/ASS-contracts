@@ -29,6 +29,7 @@ contract Market is Comptroller, Curve {
 
     event CouponPurchase(address indexed account, uint256 indexed epoch, uint256 dollarAmount, uint256 couponAmount);
     event CouponRedemption(address indexed account, uint256 indexed epoch, uint256 amount, uint256 couponAmount);
+    event EarlyCouponRedemption(address indexed account, uint256 indexed epoch, uint256 amount);
     event CouponTransfer(address indexed from, address indexed to, uint256 indexed epoch, uint256 value);
     event CouponApproval(address indexed owner, address indexed spender, uint256 value);
 
@@ -73,12 +74,10 @@ contract Market is Comptroller, Curve {
         require(epoch().sub(couponEpoch) >= 1, "Market: Too early to redeem");
         require(amount != 0, "Market: Amount too low");
 
-        uint256 underlyingAmount = balanceOfCouponUnderlying(msg.sender, couponEpoch);
-
-        if (eraStatus() == Era.Status.CONTRACTION) {
-            // apply coupon early redemption  penalty
-            uint256 penalty = underlyingAmount.mul(Constants.getCouponRedemptionPenalty()).div(100);
-            underlyingAmount = underlyingAmount.sub(penalty);
+        // early redemption penalty. Coupon premium stays
+        if (eraStatus() != Era.Status.EXPANSION) {
+            uint256 penalty = amount.mul(Constants.getCouponRedemptionPenalty()).div(100);
+            amount = amount.sub(penalty);
 
             decrementBalanceOfCouponUnderlying(
                 msg.sender,
@@ -87,11 +86,13 @@ contract Market is Comptroller, Curve {
                 "Market: Insufficient coupon underlying balance"
             );
 
-            redeemToAccount(msg.sender, amount, underlyingAmount);
-            emit CouponRedemption(msg.sender, couponEpoch, amount, underlyingAmount);
+            redeemToAccountNoBalanceCheck(msg.sender, amount);
+            emit EarlyCouponRedemption(msg.sender, couponEpoch, amount);
 
             return;
         }
+
+        uint256 underlyingAmount = balanceOfCouponUnderlying(msg.sender, couponEpoch);
 
         uint256 couponAmount =
             balanceOfCoupons(msg.sender, couponEpoch).mul(amount).div(underlyingAmount, "Market: No underlying");

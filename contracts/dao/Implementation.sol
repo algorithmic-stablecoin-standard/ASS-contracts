@@ -38,12 +38,15 @@ contract Implementation is PoolState, Pool, Market, Regulator, Govern, NinetyDay
         // // Reward committer
         // incentivize(msg.sender, Constants.getAdvanceIncentive());
 
+        // add deployed addresses
         _state.provider.dollar = IDollar(address(0));
         _state.provider.oracle = IOracle(address(0));
+        _state.provider.univ2 = IERC20(address(0));
         _state.provider.dev = msg.sender;
 
         require(_state.provider.dollar != IDollar(0), "Implementation: dollar != 0");
         require(_state.provider.oracle != IOracle(0), "Implementation: oracle != 0");
+        require(_state.provider.univ2 != IERC20(0), "Implementation: univ2 != 0");
 
         // add end sale
         endSale = block.timestamp + 90 days;

@@ -57,6 +57,10 @@ contract Comptroller is PoolSetters {
         balanceCheckInComptroller();
     }
 
+    function redeemToAccountNoBalanceCheck(address account, uint256 amount) internal {
+        dollar().mint(account, amount);
+    }
+
     function burnRedeemable(uint256 amount) internal {
         dollar().burn(amount);
         decrementTotalRedeemable(amount, "Comptroller: not enough redeemable balance");
@@ -126,24 +130,13 @@ contract Comptroller is PoolSetters {
     }
 
     function balanceCheckInComptroller() private view {
-        Require.that(
-            dollar().balanceOf(address(this)) >= totalRedeemable(),
-            FILE,
-            "Inconsistent balances"
-        );
+        Require.that(dollar().balanceOf(address(this)) >= totalRedeemable(), FILE, "Inconsistent balances");
     }
 
-    // function mintToDAO(uint256 amount) private {
-    //     if (amount > 0) {
-    //         dollar().mint(address(this), amount);
-    //         incrementTotalBonded(amount);
-    //     }
-    // }
 
     function mintToPool(uint256 amount) private {
         if (amount > 0) {
             dollar().mint(address(this), amount);
-            // dollar().mint(pool(), amount);
         }
     }
 
