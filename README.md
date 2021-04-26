@@ -17,7 +17,7 @@
 
 ## Disclaimer
 
-This project is an experiment - the protocol is audited, and we've put a significant amount of work into testing as well as generally de-risking the design of its core mechanism, however participants should take great caution as bugs resulting in loss of funds are always a possibility.
+This project is an experiment - the protocol will be audited, and we've put a significant amount of work into testing as well as generally de-risking the design of its core mechanism, however participants should take great caution as bugs resulting in loss of funds are always a possibility.
 
 ```
 Copyright 2021 Algorithmic Stablecoin Standard Posse, based on the works of the Empty Set Dollar & Dynamic Set Dollar
