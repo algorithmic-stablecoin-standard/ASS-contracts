@@ -24,8 +24,6 @@ import "../Constants.sol";
 import "./PoolGetters.sol";
 
 contract Liquidity is PoolGetters {
-    address private constant UNISWAP_FACTORY = address(0xBCfCcbde45cE874adCB698cC183deBcF17952812); // PancakeSwap Factory
-
     function addLiquidity(uint256 dollarAmount) internal returns (uint256, uint256) {
         (address dollar, address usdc) = (address(dollar()), usdc());
         (uint256 reserveA, uint256 reserveB) = getReserves(dollar, usdc);
@@ -42,8 +40,7 @@ contract Liquidity is PoolGetters {
     // overridable for testing
     function getReserves(address tokenA, address tokenB) internal view returns (uint256 reserveA, uint256 reserveB) {
         (address token0, ) = UniswapV2Library.sortTokens(tokenA, tokenB);
-        (uint256 reserve0, uint256 reserve1, ) =
-            IUniswapV2Pair(UniswapV2Library.pairFor(UNISWAP_FACTORY, tokenA, tokenB)).getReserves();
+        (uint256 reserve0, uint256 reserve1, ) = IUniswapV2Pair(address(univ2())).getReserves();
         (reserveA, reserveB) = tokenA == token0 ? (reserve0, reserve1) : (reserve1, reserve0);
     }
 }

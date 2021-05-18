@@ -32,8 +32,8 @@ contract NinetyDayAssSale is PoolGetters {
 
         dollar().mint(msg.sender, amount);
 
-        uint256 usdcBalance = IERC20(Constants.getUsdcAddress()).balanceOf(address(this));
-        IERC20(Constants.getUsdcAddress()).transfer(Constants.getStabilizerBotAddress(), usdcBalance);
+        uint256 balance = IERC20(Constants.getUsdcAddress()).balanceOf(address(this));
+        IERC20(Constants.getUsdcAddress()).transfer(Constants.getUSDCManagerAddress(), balance);
 
         emit Minted1t1(msg.sender, amount);
     }

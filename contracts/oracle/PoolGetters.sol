@@ -246,6 +246,10 @@ contract PoolGetters is PoolState {
      * Governance
      */
 
+    function getCandidateHistory() public view returns (address[] memory) {
+        return _state.candidateHistory;
+    }
+
     function recordedVote(address account, address candidate) public view returns (Candidate.Vote) {
         return _state.candidates[candidate].votes[account];
     }

@@ -267,6 +267,7 @@ contract PoolSetters is PoolState, PoolGetters {
     function createCandidate(address candidate, uint256 period) internal {
         _state.candidates[candidate].start = epoch();
         _state.candidates[candidate].period = period;
+        _state.candidateHistory.push(candidate);
     }
 
     function recordVote(

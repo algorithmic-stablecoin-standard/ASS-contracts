@@ -101,6 +101,7 @@ contract PoolStorage {
         Epoch.Global epoch;
         Era.State era;
         uint256 couponUnderlying;
+        address[] candidateHistory;
     }
 }
 

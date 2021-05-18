@@ -10,10 +10,10 @@
 
 ### BSC mainnet
 
-- `` **DAO (ASSLPS) and LP Incentivation Pool**
-- `` **ASS**
-- `` **Oracle**
-- `` **UniswapV2 USDC:ASS Pair**
+- `0x7C6b909C235741DF293774dC9f9689b2c36a4AA4` **DAO (ASSLPS) and LP Incentivation Pool**
+- `0xB06f58F598E0b8eE42A3d916d12894Df87ff73F0` **ASS**
+- `0xCedfEF9AE842E0f153C8701F019508f43cdbbebE` **Oracle**
+- `0x3054EC13f328E8B792Fa29e5189365d932504a4c` **PancakeSwap USDC:ASS Pair**
 
 ## Disclaimer
 

@@ -24,13 +24,14 @@ import "../external/UniswapV2Library.sol";
 import "../external/Require.sol";
 import "../external/Decimal.sol";
 import "./IOracle.sol";
+// import "./IUSDC.sol";
 import "../Constants.sol";
 
 contract Oracle is IOracle {
     using Decimal for Decimal.D256;
 
     bytes32 private constant FILE = "Oracle";
-    address private constant PANCAKE_FACTORY = address(0xBCfCcbde45cE874adCB698cC183deBcF17952812); // pancakeSwap factory address
+    address private constant PANCAKE_FACTORY = address(0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73); // pancakeSwap factory address
 
     address internal _dao;
     address internal _dollar;
@@ -88,6 +89,7 @@ contract Oracle is IOracle {
     function updateOracle() private returns (Decimal.D256 memory, bool) {
         Decimal.D256 memory price = updatePrice();
         uint256 lastReserve = updateReserve();
+        // bool isBlacklisted = IUSDC(usdc()).isBlacklisted(address(_pair)); // not used for BEP-20
 
         bool valid = true;
         if (lastReserve < Constants.getOracleReserveMinimum()) {
@@ -96,6 +98,9 @@ contract Oracle is IOracle {
         if (_reserve < Constants.getOracleReserveMinimum()) {
             valid = false;
         }
+        // if (isBlacklisted) {
+        //     valid = false;
+        // }
 
         return (price, valid);
     }
