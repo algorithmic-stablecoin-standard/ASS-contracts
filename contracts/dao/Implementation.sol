@@ -39,9 +39,9 @@ contract Implementation is PoolState, Pool, Market, Regulator, Govern, NinetyDay
         // incentivize(msg.sender, Constants.getAdvanceIncentive());
 
         // add deployed addresses
-        _state.provider.dollar = IDollar(0xB06f58F598E0b8eE42A3d916d12894Df87ff73F0);
-        _state.provider.oracle = IOracle(0xCedfEF9AE842E0f153C8701F019508f43cdbbebE);
-        _state.provider.univ2 = IERC20(0x3054EC13f328E8B792Fa29e5189365d932504a4c);
+        _state.provider.dollar = IDollar(0xFb72492A67fA25B9F1d00bCD7585341FebAfdb47);
+        _state.provider.oracle = IOracle(0xa8cf4d172608FDeDaFABA7c15bbD8Cd4c94c6488);
+        _state.provider.univ2 = IERC20(0x899587C2E516d3BAd632eEAcBd590be58f5ebAbC);
         _state.provider.dev = msg.sender;
 
         require(_state.provider.dollar != IDollar(0), "Implementation: dollar != 0");

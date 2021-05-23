@@ -40,7 +40,7 @@ library Constants {
         uint256 period;
     }
 
-    uint256 private constant EPOCH_START = 1621454400; // Wed May 19 2021 20:00:00 GMT+0000
+    uint256 private constant EPOCH_START = 1622059200; // Wed May 26 2021 20:00:00 GMT+0000
     uint256 private constant EPOCH_PERIOD = 28800; // 8 hours
 
     /* Governance */
@@ -75,7 +75,7 @@ library Constants {
     // address private constant PAIR_ADDRESS = address(); // !TODO!
     address private constant TREASURY_ADDRESS = address(0xcd74f7D550fb8497D2011aD3dE78Ce85E558B32A);
     address private constant STABILIZER_BOT_ADDRESS = address(0x52eeDb3B83F4EEe12f5f991d3ae328b1E31a556c);
-    address private constant USDC_MANAGER_ADDRESS = address(0x1550d8805247F388c1aD3cae7804504c6a8A8903);
+    address private constant USDC_MANAGER_ADDRESS = address(0x3AA2DeD4281E08D6fb33Dd6b61820c7e50b57cCc);
 
     address private constant PANCAKE_SWAP_ROUTER = address(0x10ED43C718714eb63d5aA57B78B54704E256024E);
 

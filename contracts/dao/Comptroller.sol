@@ -31,16 +31,12 @@ contract Comptroller is PoolSetters {
         if (!bootstrappingAt(epoch())) {
             increaseDebt(amount);
         }
-
-        balanceCheckInComptroller();
     }
 
     function burnFromAccount(address account, uint256 amount) internal {
         dollar().transferFrom(account, address(this), amount);
         dollar().burn(amount);
         decrementTotalDebt(amount, "Comptroller: not enough outstanding debt");
-
-        balanceCheckInComptroller();
     }
 
     function redeemToAccount(
@@ -53,34 +49,26 @@ contract Comptroller is PoolSetters {
             dollar().transfer(account, couponAmount);
             decrementTotalRedeemable(couponAmount, "Comptroller: not enough redeemable balance");
         }
-
-        balanceCheckInComptroller();
     }
 
     function redeemToAccountNoBalanceCheck(address account, uint256 amount) internal {
-        dollar().mint(account, amount);
+        mintToAccount(account, amount);
     }
 
     function burnRedeemable(uint256 amount) internal {
         dollar().burn(amount);
         decrementTotalRedeemable(amount, "Comptroller: not enough redeemable balance");
-
-        balanceCheckInComptroller();
     }
 
     function increaseDebt(uint256 amount) internal returns (uint256) {
         incrementTotalDebt(amount);
         uint256 lessDebt = resetDebt(Constants.getDebtRatioCap());
 
-        balanceCheckInComptroller();
-
         return lessDebt > amount ? 0 : amount.sub(lessDebt);
     }
 
     function decreaseDebt(uint256 amount) internal {
         decrementTotalDebt(amount, "Comptroller: not enough debt");
-
-        balanceCheckInComptroller();
     }
 
     function increaseSupply(uint256 newSupply) internal returns (uint256, uint256) {
@@ -110,8 +98,6 @@ contract Comptroller is PoolSetters {
             newSupply = newSupply.sub(newRedeemable);
         }
 
-        balanceCheckInComptroller();
-
         return (newRedeemable, newSupply.add(rewards));
     }
 
@@ -128,11 +114,6 @@ contract Comptroller is PoolSetters {
 
         return 0;
     }
-
-    function balanceCheckInComptroller() private view {
-        Require.that(dollar().balanceOf(address(this)) >= totalRedeemable(), FILE, "Inconsistent balances");
-    }
-
 
     function mintToPool(uint256 amount) private {
         if (amount > 0) {
@@ -155,7 +136,5 @@ contract Comptroller is PoolSetters {
     function mintToRedeemable(uint256 amount) private {
         dollar().mint(address(this), amount);
         incrementTotalRedeemable(amount);
-
-        balanceCheckInComptroller();
     }
 }
