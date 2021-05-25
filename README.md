@@ -10,7 +10,8 @@
 
 ### BSC mainnet
 
-- `0xA8D42DFc49532dce8ecf350812BE0EfeF916179A` **DAO (ASSLPS) and LP Incentivation Pool**
+- `0xbA9b32b77E5ed0Ba9e2C3964339f56264C9dC78B` **DAO (ASSLPS) and LP Incentivation Pool - Implementation**
+- `0xA8D42DFc49532dce8ecf350812BE0EfeF916179A` **DAO (ASSLPS) and LP Incentivation Pool - Proxy**
 - `0xFb72492A67fA25B9F1d00bCD7585341FebAfdb47` **ASS**
 - `0xa8cf4d172608FDeDaFABA7c15bbD8Cd4c94c6488` **Oracle**
 - `0x899587C2E516d3BAd632eEAcBd590be58f5ebAbC` **PancakeSwap USDC:ASS Pair**
